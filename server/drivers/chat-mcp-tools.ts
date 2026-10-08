@@ -76,7 +76,7 @@ class ChatMcpClient {
     for (const entry of this.pending.values()) entry.reject(new Error("MCP session closed"));
     this.pending.clear();
     this.buffer = "";
-    this.closing = killCliTree(this.child, 500).then((stopped) => {
+    this.closing = killCliTree(this.child, 5_000).then((stopped) => {
       if (!stopped) throw new Error("MCP server shutdown could not be confirmed; execution outcome may be uncertain");
     });
     return this.closing;
